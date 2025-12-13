@@ -219,7 +219,7 @@ const COMPREHENSION_BY_MODE: Record<InterfaceMode, CompQuestion[]> = {
     {
       id: 'r-q4',
       prompt:
-        'Do higher uncertainty values mean the relationship is incorrect?',
+        'Do higher uncertainty values mean the relationship MUST be incorrect?',
       options: ['Yes', 'No'],
       correctIndex: 1,
     },
