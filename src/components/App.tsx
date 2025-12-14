@@ -22,7 +22,7 @@ import { CustomGraphNode, CustomGraphEdge } from '../lib/types.ts';
 import { FROZEN_RESPONSES } from '../lib/frozenResponses.ts';
 import { TrialProvider, useTrial } from '../lib/useTrial.tsx';
 
-const FIXED_INTERFACE_MODE = 'relation'; 
+const FIXED_INTERFACE_MODE = 'paragraph'; 
 /* --------------------- Normalization --------------------- */
 const normalizeQuestion = (q: string) =>
   q
@@ -172,7 +172,7 @@ function ChatInner({ id, initialMessages, preStudyData }) {
     console.log("Prolific Params:", { pid, studyId, sessionId });
   }, []);
   const [postStudySubmitted, setPostStudySubmitted] = useState(false);
-  const FIXED_INTERFACE_MODE = 'relation';   // 👈 this branch = baseline-only
+  const FIXED_INTERFACE_MODE = 'paragraph';   // 👈 this branch = baseline-only
   const hasOpenAiKey = !!import.meta.env.VITE_OPENAI_API_KEY;
   const [questionNumber, setQuestionNumber] = useState(0); // 1..8 in the order *shown*
   const ENABLE_LIVE_MODE = false;
@@ -274,8 +274,8 @@ function ChatInner({ id, initialMessages, preStudyData }) {
       Agree: trial.agreement ? 'TRUE' : 'FALSE',
 
       Time: trial.computeResponseTime() / 1000,
-      LinkClick: Number(trial.linkClickCount ?? 0),
-      SearchClick: trial.searchClickCount,
+      LinkClick: (surveyData.__linkClicks ?? trial.linkClickCount)/2,
+      SearchClick: surveyData.__searchClicks ?? trial.searchClickCount,
 
       RawData: { surveyData, trialState: trial }
     };
@@ -343,7 +343,9 @@ function ChatInner({ id, initialMessages, preStudyData }) {
         setMessages((prev) => [...prev, newUser, newAssistant]);
 
         // Show survey immediately
-        setShowSurvey(true);
+        setTimeout(() => {
+          setShowSurvey(true);
+        }, 300);
         return;
       }
 
