@@ -274,7 +274,7 @@ function ChatInner({ id, initialMessages, preStudyData }) {
       Agree: trial.agreement ? 'TRUE' : 'FALSE',
 
       Time: trial.computeResponseTime() / 1000,
-      LinkClick: (surveyData.__linkClicks ?? trial.linkClickCount)/2,
+      LinkClick: (surveyData.__linkClicks ?? trial.linkClickCount),
       SearchClick: surveyData.__searchClicks ?? trial.searchClickCount,
 
       RawData: { surveyData, trialState: trial }
